@@ -1,0 +1,16 @@
+@use "../styles/colors" as color;
+@import "../styles/mixin";
+
+.buttonBox {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 50px;
+  background-color: color.$primary-color;
+  cursor: pointer;
+  @include center-both;
+  @include text-styles(1rem, bold, color.$gray-10);
+  .buttonImg {
+    @include center-both;
+  }
+}

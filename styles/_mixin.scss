@@ -1,0 +1,18 @@
+//Typography Mixin:
+@mixin text-styles($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+//Box Shadow Mixin
+@mixin box-shadow($x, $y, $blur, $color) {
+  box-shadow: $x $y $blur $color;
+}
+
+//Flexbox Mixin
+@mixin center-both {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
