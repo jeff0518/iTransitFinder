@@ -1,0 +1,21 @@
+@use "../styles/colors" as color;
+@import "../styles/mixin";
+
+.container {
+  width: 100vw;
+  height: 5rem;
+  padding: 0 2rem;
+  background-color: color.$brand-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  @include box-shadow(0, 1, 4px, rgba(color.$gray-11, 0.2));
+  .logo {
+  }
+
+  .AuthNavigation {
+  }
+}
