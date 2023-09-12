@@ -1,0 +1,14 @@
+@use "../../styles/colors" as color;
+@import "../../styles/mixin";
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .logoImg {
+    @include center-both;
+  }
+  .logoText {
+    @include text-styles(1rem, bold, color.$gray-10);
+  }
+}
