@@ -1,0 +1,43 @@
+@use "../../styles/colors" as color;
+@import "../../styles/mixin";
+
+.control {
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  label {
+    display: block;
+    @include text-styles(1rem, 500, color.$gray-1);
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    padding: 0.25rem;
+    width: 100%;
+    border: 1px solid color.$gray-1;
+    border-radius: 4px;
+    background-color: color.$gray-3;
+    font: inherit;
+    color: color.$brand-color;
+    text-align: left;
+  }
+}
+
+.search {
+  width: 100%;
+
+  label {
+    display: none;
+  }
+
+  input {
+    padding: 0.25rem;
+    width: 100%;
+    border: 1px solid color.$gray-1;
+    border-radius: 50px;
+    background-color: color.$gray-3;
+    font: inherit;
+    color: color.$brand-color;
+    text-align: center;
+  }
+}
