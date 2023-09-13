@@ -2,7 +2,7 @@
 @import "../styles/mixin";
 
 .header {
-  width: 100%;
+  width: 100vw;
   height: 88vh;
   background-image: linear-gradient(
       to right bottom,
@@ -17,8 +17,8 @@
   .heading {
     width: 50%;
     position: absolute;
-    top: 40%;
-    left: 70%;
+    top: 31%;
+    left: 65%;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
     backface-visibility: hidden;
@@ -37,6 +37,61 @@
       letter-spacing: 0.5rem;
       animation: moveInRight 2s ease-in-out;
     }
+  }
+
+  .composition {
+    width: 50%;
+    position: relative;
+    .ubike,
+    .bus,
+    .mrt,
+    .parking {
+      width: 55%;
+      position: absolute;
+      box-shadow: 0 1.5rem 4rem rgba(color.$gray-1, 0.4);
+      border-radius: 5px;
+      object-fit: cover;
+      z-index: 10;
+      transition: all 0.2s;
+      outline-offset: 1rem;
+      cursor: pointer;
+    }
+
+    .ubike {
+      left: 4rem;
+      top: 11rem;
+    }
+
+    .mrt {
+      left: 14rem;
+      top: 17rem;
+    }
+
+    .bus {
+      left: 11rem;
+      top: 24rem;
+    }
+
+    .parking {
+      left: 1rem;
+      top: 19rem;
+    }
+
+    .ubike:hover,
+    .bus:hover,
+    .mrt:hover,
+    .parking:hover {
+      outline: 1rem solid color.$brand-color;
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba(color.$gray-1, 0.5);
+      z-index: 20;
+    }
+  }
+  &:hover .ubike:not(:hover),
+  &:hover .bus:not(:hover),
+  &:hover .mrt:not(:hover),
+  &:hover .parking:not(:hover) {
+    transform: scale(0.95);
   }
 }
 
@@ -71,3 +126,5 @@
     transform: translate(0);
   }
 }
+
+//RWD 412px 800px 1120px
