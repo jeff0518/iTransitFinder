@@ -6,11 +6,9 @@
   height: 40px;
   border: none;
   border-radius: 50px;
-  background-color: color.$primary-color;
+  background-color: color.$assistant-gray-color;
   cursor: pointer;
   @include center-both;
-  @include text-styles(1rem, bold, color.$gray-10);
-  .buttonImg {
-    @include center-both;
-  }
+  gap: 5px;
+  @include text-styles(1.25rem, bold, color.$gray-10);
 }

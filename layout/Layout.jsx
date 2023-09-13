@@ -3,16 +3,19 @@ import AuthNavigation from "./AuthNavigation";
 
 import style from "./Layout.module.scss";
 
-function Layout() {
+function Layout(props) {
   return (
-    <div className={style.container}>
-      <div className={style.logo}>
-        <Logo />
+    <>
+      <div className={style.container}>
+        <div className={style.logo}>
+          <Logo />
+        </div>
+        <div className={style.AuthNavigation}>
+          <AuthNavigation />
+        </div>
       </div>
-      <div className={style.AuthNavigation}>
-        <AuthNavigation />
-      </div>
-    </div>
+      {props.children}
+    </>
   );
 }
 

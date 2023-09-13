@@ -7,6 +7,6 @@
     @include center-both;
   }
   .logoText {
-    @include text-styles(1rem, bold, color.$gray-10);
+    @include text-styles(1.75rem, bold, color.$gray-10);
   }
 }

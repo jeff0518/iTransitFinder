@@ -1,18 +1,11 @@
-import Image from "next/image";
+import AuthImage from "@/components/auth/AuthImage";
 
 import style from "./AuthNavigation.module.scss";
 
 function AuthNavigation() {
   return (
     <div className={style.buttonBox}>
-      <div className={style.buttonImg}>
-        <Image
-          src="/images/icon/login.png"
-          width={32}
-          height={32}
-          alt="這是login"
-        />
-      </div>
+      <AuthImage text="登入" src="/images/icon/login.png" />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Head from "next/head";
+import Image from "next/image";
 
-import style from "../styles/HomePage.module.scss";
+import style from "./HomePage.module.scss";
 
 export default function Home() {
   return (
@@ -11,10 +12,38 @@ export default function Home() {
           name="description"
           content="iTransit Finder - Your Urban Navigation Companion"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={style.header}></div>
+      <div className={style.header}>
+        <h1 className={style.heading}>
+          <span className={style.heading_main}>iTransitFinder</span>
+          <span className={style.heading_sub}>
+            Your Urban Navigation Companion
+          </span>
+        </h1>
+        <div className={style.composition}>
+          <img
+            className={style.parking}
+            src="/images/background/ParkingLot.jpg"
+            alt="停車場"
+          />
+          <img
+            className={style.bus}
+            src="/images/background/bus.jpg"
+            alt="巴士"
+          />
+          <img
+            className={style.mrt}
+            src="/images/background/MRT.jpg"
+            alt="捷運"
+          />
+
+          <img
+            className={style.ubike}
+            src="/images/background/ubike.jpg"
+            alt="uBike"
+          />
+        </div>
+      </div>
     </>
   );
 }

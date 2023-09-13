@@ -1,0 +1,130 @@
+@use "../styles/colors" as color;
+@import "../styles/mixin";
+
+.header {
+  width: 100vw;
+  height: 88vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(color.$brand-light-color, 0.8),
+      rgba(color.$assistant-green-color, 0.8)
+    ),
+    url(../public/images/background/googlemap.jpg);
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+
+  .heading {
+    width: 50%;
+    position: absolute;
+    top: 31%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    backface-visibility: hidden;
+
+    &_main {
+      display: block;
+      @include text-styles(2.5rem, 400, color.$gray-1);
+      letter-spacing: 1.1rem;
+
+      animation: moveInLeft 2s ease-out;
+    }
+
+    &_sub {
+      display: block;
+      @include text-styles(1rem, 400, color.$gray-1);
+      letter-spacing: 0.5rem;
+      animation: moveInRight 2s ease-in-out;
+    }
+  }
+
+  .composition {
+    width: 50%;
+    position: relative;
+    .ubike,
+    .bus,
+    .mrt,
+    .parking {
+      width: 55%;
+      position: absolute;
+      box-shadow: 0 1.5rem 4rem rgba(color.$gray-1, 0.4);
+      border-radius: 5px;
+      object-fit: cover;
+      z-index: 10;
+      transition: all 0.2s;
+      outline-offset: 1rem;
+      cursor: pointer;
+    }
+
+    .ubike {
+      left: 4rem;
+      top: 11rem;
+    }
+
+    .mrt {
+      left: 14rem;
+      top: 17rem;
+    }
+
+    .bus {
+      left: 11rem;
+      top: 24rem;
+    }
+
+    .parking {
+      left: 1rem;
+      top: 19rem;
+    }
+
+    .ubike:hover,
+    .bus:hover,
+    .mrt:hover,
+    .parking:hover {
+      outline: 1rem solid color.$brand-color;
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba(color.$gray-1, 0.5);
+      z-index: 20;
+    }
+  }
+  &:hover .ubike:not(:hover),
+  &:hover .bus:not(:hover),
+  &:hover .mrt:not(:hover),
+  &:hover .parking:not(:hover) {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-100px);
+  }
+
+  80% {
+    transform: translate(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translate(100px);
+  }
+
+  80% {
+    transform: translate(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+//RWD 412px 800px 1120px
