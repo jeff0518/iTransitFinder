@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import style from "../styles/HomePage.module.scss";
+import style from "./HomePage.module.scss";
 
 export default function Home() {
   return (
@@ -11,10 +11,15 @@ export default function Home() {
           name="description"
           content="iTransit Finder - Your Urban Navigation Companion"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={style.header}></div>
+      <div className={style.header}>
+        <h1 className={style.heading}>
+          <span className={style.heading_main}>iTransitFinder</span>
+          <span className={style.heading_sub}>
+            Your Urban Navigation Companion
+          </span>
+        </h1>
+      </div>
     </>
   );
 }
