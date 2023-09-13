@@ -1,0 +1,9 @@
+@use "../../styles/colors" as color;
+@import "../../styles/mixin";
+
+.image {
+  @include center-both;
+  margin: 0 1.25rem;
+  display: flex;
+  gap: 0.5em;
+}
