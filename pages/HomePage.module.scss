@@ -4,6 +4,10 @@
 .header {
   width: 100vw;
   height: 88vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-auto-rows: minmax(auto, 88vh);
   background-image: linear-gradient(
       to right bottom,
       rgba(color.$brand-light-color, 0.8),
@@ -14,33 +18,37 @@
   background-position: center;
   clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
 
-  .heading {
-    width: 50%;
-    position: absolute;
-    top: 31%;
-    left: 65%;
-    transform: translate(-50%, -50%);
-    text-transform: uppercase;
-    backface-visibility: hidden;
+  .headingBox {
+    grid-column: 2/3;
+    position: relative;
+    .heading {
+      width: 100%;
+      position: absolute;
+      top: 7rem;
+      left: 10%;
+      // transform: translate(-50%, -50%);
+      text-transform: uppercase;
+      backface-visibility: hidden;
 
-    &_main {
-      display: block;
-      @include text-styles(2.5rem, 400, color.$gray-1);
-      letter-spacing: 1.1rem;
+      &_main {
+        display: block;
+        @include text-styles(2.5rem, 400, color.$gray-1);
+        letter-spacing: 1.1rem;
 
-      animation: moveInLeft 2s ease-out;
-    }
+        animation: moveInLeft 2s ease-out;
+      }
 
-    &_sub {
-      display: block;
-      @include text-styles(1rem, 400, color.$gray-1);
-      letter-spacing: 0.5rem;
-      animation: moveInRight 2s ease-in-out;
+      &_sub {
+        display: block;
+        @include text-styles(1rem, 400, color.$gray-1);
+        letter-spacing: 0.5rem;
+        animation: moveInRight 2s ease-in-out;
+      }
     }
   }
 
   .composition {
-    width: 50%;
+    grid-column: 1/2;
     position: relative;
     .ubike,
     .bus,

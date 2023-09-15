@@ -14,12 +14,14 @@ export default function Home() {
         />
       </Head>
       <div className={style.header}>
-        <h1 className={style.heading}>
-          <span className={style.heading_main}>iTransitFinder</span>
-          <span className={style.heading_sub}>
-            Your Urban Navigation Companion
-          </span>
-        </h1>
+        <div className={style.headingBox}>
+          <h1 className={style.heading}>
+            <span className={style.heading_main}>iTransit Finder</span>
+            <span className={style.heading_sub}>
+              Your Urban Navigation Companion
+            </span>
+          </h1>
+        </div>
         <div className={style.composition}>
           <img
             className={style.parking}
