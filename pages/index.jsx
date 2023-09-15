@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 
 import style from "./HomePage.module.scss";
 
@@ -23,27 +23,34 @@ export default function Home() {
           </h1>
         </div>
         <div className={style.composition}>
-          <img
-            className={style.parking}
-            src="/images/background/ParkingLot.jpg"
-            alt="停車場"
-          />
-          <img
-            className={style.bus}
-            src="/images/background/bus.jpg"
-            alt="巴士"
-          />
-          <img
-            className={style.mrt}
-            src="/images/background/MRT.jpg"
-            alt="捷運"
-          />
-
-          <img
-            className={style.ubike}
-            src="/images/background/ubike.jpg"
-            alt="uBike"
-          />
+          <Link href="/parking">
+            <img
+              className={style.parking}
+              src="/images/background/ParkingLot.jpg"
+              alt="停車場"
+            />
+          </Link>
+          <Link href="/bus">
+            <img
+              className={style.bus}
+              src="/images/background/bus.jpg"
+              alt="巴士"
+            />
+          </Link>
+          <Link href="mrt">
+            <img
+              className={style.mrt}
+              src="/images/background/MRT.jpg"
+              alt="捷運"
+            />
+          </Link>
+          <Link href="bike">
+            <img
+              className={style.ubike}
+              src="/images/background/ubike.jpg"
+              alt="uBike"
+            />
+          </Link>
         </div>
       </div>
     </>

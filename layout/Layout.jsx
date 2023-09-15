@@ -1,4 +1,5 @@
 import Logo from "./Logo";
+import Link from "next/link";
 import AuthNavigation from "./AuthNavigation";
 
 import style from "./Layout.module.scss";
@@ -7,12 +8,16 @@ function Layout(props) {
   return (
     <>
       <div className={style.container}>
-        <div className={style.logo}>
-          <Logo />
-        </div>
-        <div className={style.AuthNavigation}>
-          <AuthNavigation />
-        </div>
+        <Link href="/">
+          <div className={style.logo}>
+            <Logo />
+          </div>
+        </Link>
+        <Link href="/auth">
+          <div className={style.AuthNavigation}>
+            <AuthNavigation />
+          </div>
+        </Link>
       </div>
       {props.children}
     </>
