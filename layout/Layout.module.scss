@@ -5,7 +5,7 @@
   width: 100vw;
   height: 5rem;
   padding: 0 2rem;
-  background-color: color.$brand-color;
+  background-color: color.$assistant-gray-color;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -13,9 +13,4 @@
   flex-wrap: wrap;
   align-items: center;
   @include box-shadow(0, 1, 4px, rgba(color.$gray-11, 0.2));
-  .logo {
-  }
-
-  .AuthNavigation {
-  }
 }

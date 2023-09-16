@@ -16,7 +16,7 @@
     url(../public/images/background/googlemap.jpg);
   background-size: cover;
   background-position: center;
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
 
   .headingBox {
     grid-column: 2/3;
