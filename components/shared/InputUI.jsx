@@ -1,3 +1,5 @@
+import style from "./InputUI.module.scss";
+
 function InputUI(props) {
   const {
     inputId,

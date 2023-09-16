@@ -10,3 +10,18 @@
   @include center-both;
   @include text-styles(1rem, bold, color.$gray-10);
 }
+
+.btn__pill {
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  @include center-both;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.btn__pill:hover {
+  background-color: color.$primary-color;
+  color: color.$assistant-gray-color;
+}

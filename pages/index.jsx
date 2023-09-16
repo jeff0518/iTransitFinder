@@ -1,9 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useMemo } from "react";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 import style from "./HomePage.module.scss";
 
 export default function Home() {
+  const libraries = useMemo(() => ["places"], []);
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+    libraries,
+  });
+
+  if (!isLoaded) return <div>Loading...</div>;
   return (
     <>
       <Head>
