@@ -1,0 +1,15 @@
+@use "../../styles/colors" as color;
+@import "../../styles/mixin";
+
+.container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+  background-color: color.$assistant-blue-color;
+  .inputBox {
+    width: 100%;
+  }
+  .buttonBox {
+    width: 100%;
+  }
+}
