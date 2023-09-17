@@ -23,4 +23,49 @@
       height: 100%;
     }
   }
+
+  .info__route {
+    width: 100%;
+    margin: 0.5rem 0;
+    .route__distance {
+      width: 100%;
+      height: 100%;
+      line-height: 2rem;
+    }
+
+    .route__duration {
+      width: 100%;
+      height: 100%;
+      line-height: 2rem;
+    }
+  }
+  .info__station {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    .station__title {
+      width: 100%;
+      text-align: center;
+    }
+    .station__text {
+      width: 100%;
+    }
+  }
+  .action {
+    width: 100%;
+    margin-top: 3rem;
+    @include center-both;
+    gap: 3rem;
+
+    .riDelete,
+    .biNav {
+      cursor: pointer;
+    }
+
+    .riDelete:hover,
+    .biNav:hover {
+      color: color.$brand-light-color;
+    }
+  }
 }
