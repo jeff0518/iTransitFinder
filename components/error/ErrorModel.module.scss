@@ -1,0 +1,16 @@
+@use "../../styles/colors" as color;
+@import "../../styles/mixin";
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include center-both;
+  background-color: color.$brand-color;
+  h1 {
+    @include text-styles(2rem, 500, color.$gray-10);
+  }
+
+  p {
+    @include text-styles(1rem, 500, color.$gray-10);
+  }
+}
