@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
+import ErrorModel from "@/components/error/ErrorModel";
 import style from "./HomePage.module.scss";
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
     libraries,
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <ErrorModel errorName="lo" />;
   return (
     <>
       <Head>
