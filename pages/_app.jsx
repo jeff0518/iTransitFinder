@@ -6,12 +6,10 @@ import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <NavigationProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </NavigationProvider>
-    </SessionProvider>
+    <NavigationProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </NavigationProvider>
   );
 }
