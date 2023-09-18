@@ -1,9 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-// import { useMemo } from "react";
-// import { useJsApiLoader } from "@react-google-maps/api";
 
-// import ErrorModel from "@/components/error/ErrorModel";
 import style from "./HomePage.module.scss";
 
 export default function Home() {

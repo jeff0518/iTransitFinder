@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo } from "react";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, Circle } from "@react-google-maps/api";
 
 import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
@@ -24,6 +24,11 @@ function Map() {
     []
   );
 
+  const currentIcon = {
+    url: "/images/icon/location.png",
+    scaledSize: { width: 50, height: 50 },
+  };
+
   // 拿取當前使用者位子
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -47,9 +52,28 @@ function Map() {
         center={currentPosition}
         options={options}
         mapContainerClassName={style.googleMap}
-      ></GoogleMap>
+      >
+        <MarkerF position={currentPosition} icon={currentIcon} />
+        <Circle center={currentPosition} radius={500} options={closeOptions} />
+      </GoogleMap>
     </div>
   );
 }
 
 export default Map;
+
+const defaultOptions = {
+  strokeOpacity: 0.5,
+  strokeWeight: 2,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+};
+const closeOptions = {
+  ...defaultOptions,
+  zIndex: 3,
+  fillOpacity: 0.05,
+  strokeColor: "#8BC34A",
+  fillColor: "#8BC34A",
+};
