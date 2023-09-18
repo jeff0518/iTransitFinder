@@ -1,5 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { GoogleMap, MarkerF, Circle } from "@react-google-maps/api";
+import getDistance from "geolib/es/getDistance";
 
 import { NavigationContext } from "@/context/NavigationContext";
 import { getTaipeiYouBikeData } from "@/api/getYouBikeAPI";
@@ -90,6 +91,12 @@ function Map() {
         {youBikeData.map((data) => {
           let amount = null;
           if (data.act === "0") return;
+
+          let itemDistance = getDistance(
+            { lat: currentPosition.lat, lng: currentPosition.lng },
+            { lat: data.lat, lng: data.lng }
+          );
+          if (itemDistance > 500) return;
           if (data.sbi > 3) {
             amount = true;
           } else {
