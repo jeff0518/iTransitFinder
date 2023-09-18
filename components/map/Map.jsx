@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import { GoogleMap, MarkerF, Circle } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import getDistance from "geolib/es/getDistance";
 
 import { NavigationContext } from "@/context/NavigationContext";
@@ -23,12 +23,6 @@ const noRentBike = {
 
 function Map() {
   const { currentPosition, setCurrentPosition } = useContext(NavigationContext);
-
-  // 設定預設中心點(台北101)
-  const defaultCenter = useMemo(
-    () => ({ lat: 25.033671, lng: 121.564427 }),
-    []
-  );
 
   // 定義地圖的選項
   const options = useMemo(
@@ -86,12 +80,10 @@ function Map() {
         mapContainerClassName={style.googleMap}
       >
         <MarkerF position={currentPosition} icon={currentIcon} />
-
-        <Circle center={currentPosition} radius={500} options={closeOptions} />
         {youBikeData.map((data) => {
           let amount = null;
           if (data.act === "0") return;
-
+          // 計算離使用者有多少距離
           let itemDistance = getDistance(
             { lat: currentPosition.lat, lng: currentPosition.lng },
             { lat: data.lat, lng: data.lng }
@@ -103,11 +95,13 @@ function Map() {
             amount = false;
           }
           return (
-            <MarkerF
-              key={data.sno}
-              position={{ lat: data.lat, lng: data.lng }}
-              icon={amount ? normalBike : noRentBike}
-            />
+            <>
+              <MarkerF
+                key={data.sno}
+                position={{ lat: data.lat, lng: data.lng }}
+                icon={amount ? normalBike : noRentBike}
+              />
+            </>
           );
         })}
       </GoogleMap>
@@ -116,19 +110,3 @@ function Map() {
 }
 
 export default Map;
-
-const defaultOptions = {
-  strokeOpacity: 0.5,
-  strokeWeight: 2,
-  clickable: false,
-  draggable: false,
-  editable: false,
-  visible: true,
-};
-const closeOptions = {
-  ...defaultOptions,
-  zIndex: 3,
-  fillOpacity: 0.05,
-  strokeColor: "#8BC34A",
-  fillColor: "#8BC34A",
-};
