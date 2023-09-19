@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { NavigationContext } from "@/context/NavigationContext";
+
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiNavigation } from "react-icons/bi";
 
@@ -7,6 +10,15 @@ import style from "./SearchBar.module.scss";
 
 function SearchBar(props) {
   const { distance, duration, sna, sbi, bemp, updateTime } = props;
+
+  const { userLocation, screenCenter, setCurrentPosition } =
+    useContext(NavigationContext);
+
+  // 點擊返回使用者所在地
+  const panToUserLocationHandler = () => {
+    setCurrentPosition(userLocation);
+    screenCenter.panTo(userLocation);
+  };
   return (
     <>
       <div className={style.container}>
@@ -37,7 +49,11 @@ function SearchBar(props) {
         </div>
         <div className={style.action}>
           <RiDeleteBin6Line className={style.riDelete} size={35} />
-          <BiNavigation className={style.biNav} size={35} />
+          <BiNavigation
+            className={style.biNav}
+            size={35}
+            onClick={panToUserLocationHandler}
+          />
         </div>
         {/* 資訊顯示欄位並附上刪除資料按鈕 */}
       </div>

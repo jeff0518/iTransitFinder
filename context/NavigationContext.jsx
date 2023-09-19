@@ -11,8 +11,9 @@ export const NavigationContext = createContext(defaultValue);
 function NavigationProvider(props) {
   const { children } = props;
 
-  const [userLocation, setUserLocation] = useState(defaultCenter);
-  const [currentPosition, setCurrentPosition] = useState(defaultCenter);
+  const [userLocation, setUserLocation] = useState(defaultCenter); //存放使用者座標
+  const [currentPosition, setCurrentPosition] = useState(defaultCenter); //存放目前所在地座標
+  const [screenCenter, setScreenCenter] = useState(); //存放螢幕中心點座標
 
   return (
     <NavigationContext.Provider
@@ -21,6 +22,8 @@ function NavigationProvider(props) {
         setCurrentPosition,
         userLocation,
         setUserLocation,
+        screenCenter,
+        setScreenCenter,
       }}
     >
       {children}

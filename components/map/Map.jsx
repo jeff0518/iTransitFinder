@@ -29,10 +29,15 @@ const noRentBike = {
 };
 
 function Map() {
-  const { currentPosition, setCurrentPosition, userLocation, setUserLocation } =
-    useContext(NavigationContext);
+  const {
+    currentPosition,
+    setCurrentPosition,
+    userLocation,
+    setUserLocation,
+    screenCenter,
+    setScreenCenter,
+  } = useContext(NavigationContext);
   const screenCenterRef = useRef();
-  const [screenCenter, setScreenCenter] = useState(); //存放螢幕中心點
   const [timer, setTimer] = useState(null); //存放setTimeout的計時器
   // 定義地圖的選項
   const options = useMemo(
@@ -49,6 +54,7 @@ function Map() {
     screenCenterRef.current = screenCenter;
     setScreenCenter(screenCenter);
   }, []);
+
   const centerChangHandler = () => {
     if (timer) {
       clearTimeout(timer);
@@ -65,7 +71,6 @@ function Map() {
     }, 500);
     setTimer(newTimer);
   };
-
   // 抓取API的資料，並每個1分鐘自動更新一次
   const [youBikeData, setYouBikeData] = useState([]);
   const fetchData = async () => {
