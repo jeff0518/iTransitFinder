@@ -11,10 +11,18 @@ export const NavigationContext = createContext(defaultValue);
 function NavigationProvider(props) {
   const { children } = props;
 
+  const [userLocation, setUserLocation] = useState(defaultCenter);
   const [currentPosition, setCurrentPosition] = useState(defaultCenter);
 
   return (
-    <NavigationContext.Provider value={{ currentPosition, setCurrentPosition }}>
+    <NavigationContext.Provider
+      value={{
+        currentPosition,
+        setCurrentPosition,
+        userLocation,
+        setUserLocation,
+      }}
+    >
       {children}
     </NavigationContext.Provider>
   );

@@ -1,4 +1,3 @@
-import { SessionProvider } from "next-auth/react";
 import NavigationProvider from "@/context/NavigationContext";
 import Layout from "../layout/Layout";
 

@@ -1,4 +1,11 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  useRef,
+} from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import getDistance from "geolib/es/getDistance";
 
@@ -22,8 +29,11 @@ const noRentBike = {
 };
 
 function Map() {
-  const { currentPosition, setCurrentPosition } = useContext(NavigationContext);
-
+  const { currentPosition, setCurrentPosition, userLocation, setUserLocation } =
+    useContext(NavigationContext);
+  const screenCenterRef = useRef();
+  const [screenCenter, setScreenCenter] = useState(); //存放螢幕中心點
+  const [timer, setTimer] = useState(null); //存放setTimeout的計時器
   // 定義地圖的選項
   const options = useMemo(
     () => ({
@@ -34,6 +44,27 @@ function Map() {
     }),
     []
   );
+  // 抓取螢幕中心點，並把使用者所在地位子改成目前螢幕中心點
+  const onLoad = useCallback((screenCenter) => {
+    screenCenterRef.current = screenCenter;
+    setScreenCenter(screenCenter);
+  }, []);
+  const centerChangHandler = () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      if (screenCenter) {
+        const newCurrentCenter = screenCenter.getCenter();
+        setCurrentPosition({
+          lat: newCurrentCenter.lat(),
+          lng: newCurrentCenter.lng(),
+        });
+      }
+    }, 500);
+    setTimer(newTimer);
+  };
 
   // 抓取API的資料，並每個1分鐘自動更新一次
   const [youBikeData, setYouBikeData] = useState([]);
@@ -59,6 +90,10 @@ function Map() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
         setCurrentPosition({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -66,7 +101,6 @@ function Map() {
       },
       () => {
         console.log("無法顯示或拒絕定位");
-        setCurrentPosition(defaultCenter);
       }
     );
   }, []);
@@ -75,20 +109,26 @@ function Map() {
     <div className={style.container}>
       <GoogleMap
         zoom={16}
-        center={currentPosition}
+        center={userLocation}
         options={options}
         mapContainerClassName={style.googleMap}
+        onLoad={onLoad}
+        onCenterChanged={centerChangHandler}
       >
-        <MarkerF position={currentPosition} icon={currentIcon} />
+        <MarkerF position={userLocation} icon={currentIcon} />
         {youBikeData.map((data) => {
           let amount = null;
           if (data.act === "0") return;
           // 計算離使用者有多少距離
-          let itemDistance = getDistance(
+          // let userDistance = getDistance(
+          //   { lat: userLocation.lat, lng: userLocation.lng },
+          //   { lat: data.lat, lng: data.lng }
+          // );
+          let screenCenterDistance = getDistance(
             { lat: currentPosition.lat, lng: currentPosition.lng },
             { lat: data.lat, lng: data.lng }
           );
-          if (itemDistance > 500) return;
+          if (screenCenterDistance > 500) return;
           if (data.sbi > 3) {
             amount = true;
           } else {
