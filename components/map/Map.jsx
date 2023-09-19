@@ -10,7 +10,6 @@ import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import getDistance from "geolib/es/getDistance";
 
 import { NavigationContext } from "@/context/NavigationContext";
-import { getTaipeiYouBikeData } from "@/api/getYouBikeAPI";
 import style from "./Map.module.scss";
 
 const currentIcon = {
@@ -28,7 +27,8 @@ const noRentBike = {
   scaledSize: { width: 36, height: 36 },
 };
 
-function Map() {
+function Map(props) {
+  const { youBikeData } = props;
   const {
     currentPosition,
     setCurrentPosition,
@@ -71,25 +71,6 @@ function Map() {
     }, 500);
     setTimer(newTimer);
   };
-  // 抓取API的資料，並每個1分鐘自動更新一次
-  const [youBikeData, setYouBikeData] = useState([]);
-  const fetchData = async () => {
-    try {
-      const data = await getTaipeiYouBikeData();
-      setYouBikeData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-    const renderAPI = setInterval(() => {
-      fetchData();
-    }, 60000);
-    return () => {
-      clearInterval(renderAPI);
-    };
-  }, []);
 
   // 拿取當前使用者位子
   useEffect(() => {

@@ -13,7 +13,8 @@ function NavigationProvider(props) {
 
   const [userLocation, setUserLocation] = useState(defaultCenter); //存放使用者座標
   const [currentPosition, setCurrentPosition] = useState(defaultCenter); //存放目前所在地座標
-  const [screenCenter, setScreenCenter] = useState(); //存放螢幕中心點座標
+  const [screenCenter, setScreenCenter] = useState(null); //存放螢幕中心點座標
+  const [destination, setDestination] = useState(null); // 存放目的地的資料
 
   return (
     <NavigationContext.Provider
@@ -24,6 +25,8 @@ function NavigationProvider(props) {
         setUserLocation,
         screenCenter,
         setScreenCenter,
+        destination,
+        setDestination,
       }}
     >
       {children}
