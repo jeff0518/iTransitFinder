@@ -69,6 +69,7 @@ function SearchBar(props) {
   // 點擊返回使用者所在地
   const panToUserLocationHandler = () => {
     setCurrentPosition(userLocation);
+    setCircle({ lat: userLocation.lat, lng: userLocation.lng });
     screenCenter.panTo(userLocation);
   };
   // 前往目的地
@@ -107,8 +108,10 @@ function SearchBar(props) {
           </div>
         </div>
         <div className={style.info__route}>
-          <div className={style.route__distance}>Distance:{distance}</div>
-          <div className={style.route__duration}>Duration:{duration}</div>
+          <div className={style.route__distance}>與目的地的距離:{distance}</div>
+          <div className={style.route__duration}>
+            到目的地的預估時間:{duration}
+          </div>
         </div>
         {/* 資訊欄必須要點擊才會出現，後續要補判斷式 */}
         <div className={style.info__station}>

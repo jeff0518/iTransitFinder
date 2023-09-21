@@ -12,24 +12,10 @@ import getDistance from "geolib/es/getDistance";
 import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
 
-const currentIcon = {
-  url: "/images/icon/location.png",
-  scaledSize: { width: 50, height: 50 },
-};
-
-const normalBike = {
-  url: "/images/icon/normal-bike.png",
-  scaledSize: { width: 36, height: 36 },
-};
-
-const noRentBike = {
-  url: "/images/icon/no-rent-bike.png",
-  scaledSize: { width: 36, height: 36 },
-};
-
 function Map(props) {
   const { youBikeData } = props;
   const {
+    currentPosition,
     setCurrentPosition,
     userLocation,
     setUserLocation,
@@ -77,6 +63,12 @@ function Map(props) {
     setTimer(newTimer);
   };
 
+  // 計算使用者位置與螢幕中心點位置
+  const iconDistance = getDistance(
+    { lat: userLocation.lat, lng: userLocation.lng },
+    { lat: currentPosition.lat, lng: currentPosition.lng }
+  );
+
   // 拿取當前使用者位子
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -106,7 +98,11 @@ function Map(props) {
         onLoad={onLoad}
         onCenterChanged={centerChangHandler}
       >
+        {iconDistance > 100 && (
+          <MarkerF position={currentPosition} icon={flagIcon} />
+        )}
         <MarkerF position={userLocation} icon={currentIcon} />
+
         {youBikeData.map((data) => {
           let amount = null;
           if (data.act === "0") return;
@@ -137,3 +133,23 @@ function Map(props) {
 }
 
 export default Map;
+
+const currentIcon = {
+  url: "/images/icon/location.png",
+  scaledSize: { width: 50, height: 50 },
+};
+
+const normalBike = {
+  url: "/images/icon/normal-bike.png",
+  scaledSize: { width: 36, height: 36 },
+};
+
+const noRentBike = {
+  url: "/images/icon/no-rent-bike.png",
+  scaledSize: { width: 36, height: 36 },
+};
+
+const flagIcon = {
+  url: "/images/icon/flag.png",
+  scaledSize: { width: 50, height: 50 },
+};
