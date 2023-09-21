@@ -1,5 +1,6 @@
 import { useContext, useState, useRef } from "react";
 import { NavigationContext } from "@/context/NavigationContext";
+import { SearchContext } from "@/context/SearchContext";
 import { Autocomplete } from "@react-google-maps/api";
 
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -10,18 +11,22 @@ import InputUI from "../shared/InputUI";
 import style from "./SearchBar.module.scss";
 
 function SearchBar(props) {
-  const { sna, sbi, bemp, updateTime } = props; //有問題
+  const { sna, sbi, bemp, updateTime } = props.stationData;
   const {
     userLocation,
     screenCenter,
     currentPosition,
     setCurrentPosition,
-    destination,
-    circle,
     setCircle,
   } = useContext(NavigationContext);
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
+  const {
+    destination,
+    setDestination,
+    distance,
+    setDistance,
+    duration,
+    setDuration,
+  } = useContext(SearchContext);
   const destinationInputRef = useRef();
 
   // 抓取input內容
@@ -81,6 +86,7 @@ function SearchBar(props) {
   const clearButton = () => {
     setDistance("");
     setDuration("");
+    setDestination(null);
     destinationInputRef.current.value = "";
   };
 

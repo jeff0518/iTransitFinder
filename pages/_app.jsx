@@ -1,4 +1,5 @@
 import NavigationProvider from "@/context/NavigationContext";
+import SearchProvider from "@/context/SearchContext";
 import Layout from "../layout/Layout";
 
 import "@/styles/globals.css";
@@ -6,9 +7,11 @@ import "@/styles/globals.css";
 export default function App({ Component, pageProps }) {
   return (
     <NavigationProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SearchProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SearchProvider>
     </NavigationProvider>
   );
 }

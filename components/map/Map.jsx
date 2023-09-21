@@ -13,7 +13,7 @@ import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
 
 function Map(props) {
-  const { youBikeData } = props;
+  const { youBikeData, showDataHandler } = props;
   const {
     currentPosition,
     setCurrentPosition,
@@ -123,6 +123,7 @@ function Map(props) {
                 key={data.sno}
                 position={{ lat: data.lat, lng: data.lng }}
                 icon={amount ? normalBike : noRentBike}
+                onClick={() => showDataHandler(data)}
               />
             </>
           );
