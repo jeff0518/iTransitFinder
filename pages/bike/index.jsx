@@ -10,6 +10,7 @@ import { SearchContext } from "@/context/SearchContext";
 import style from "./index.module.scss";
 
 function BikePage() {
+  const [isStationInfoVisible, setIsStationInfoVisible] = useState(false);
   const { setCurrentPosition } = useContext(NavigationContext);
   const { setDestination, stationData, setStationData } =
     useContext(SearchContext);
@@ -18,6 +19,7 @@ function BikePage() {
   // 抓取站點資料
   const showDataHandler = (props) => {
     console.log(props);
+    setIsStationInfoVisible(true);
     setStationData(props);
     setDestination("Taipei " + props.aren);
     setCurrentPosition({ lat: props.lat, lng: props.lng });
@@ -47,13 +49,14 @@ function BikePage() {
   return (
     <div className={style.container}>
       <div className={style.container__search}>
-        <SearchBar stationData={stationData} />
+        <SearchBar
+          stationData={stationData}
+          isStationInfoVisible={isStationInfoVisible}
+          setIsStationInfoVisible={setIsStationInfoVisible}
+        />
       </div>
       <div className={style.container__map}>
-        <Map
-          youBikeData={youBikeData}
-          showDataHandler={(data) => showDataHandler(data)}
-        />
+        <Map youBikeData={youBikeData} showDataHandler={showDataHandler} />
       </div>
     </div>
   );

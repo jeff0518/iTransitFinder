@@ -11,6 +11,7 @@ import InputUI from "../shared/InputUI";
 import style from "./SearchBar.module.scss";
 
 function SearchBar(props) {
+  const { isStationInfoVisible, setIsStationInfoVisible } = props;
   const { sna, sbi, bemp, updateTime } = props.stationData;
   const {
     userLocation,
@@ -28,7 +29,6 @@ function SearchBar(props) {
     setDuration,
   } = useContext(SearchContext);
   const destinationInputRef = useRef();
-
   // 抓取input內容
   const calculateRoute = async () => {
     console.log(currentPosition);
@@ -87,6 +87,7 @@ function SearchBar(props) {
     setDistance("");
     setDuration("");
     setDestination(null);
+    setIsStationInfoVisible(false);
     destinationInputRef.current.value = "";
   };
 
@@ -120,13 +121,22 @@ function SearchBar(props) {
           </div>
         </div>
         {/* 資訊欄必須要點擊才會出現，後續要補判斷式 */}
-        <div className={style.info__station}>
-          <h3 className={style.station__title}>站點資訊</h3>
-          <div className={style.station__text}>站點名稱：{sna}</div>
-          <div className={style.station__text}>可借車輛：{sbi}</div>
-          <div className={style.station__text}>可停空位：{bemp}</div>
-          <div className={style.station__text}>更新時間：{updateTime}</div>
-        </div>
+        {isStationInfoVisible && (
+          <div className={style.info__station}>
+            <h3 className={style.station__title}>站點資訊</h3>
+            <div className={style.station__text}>
+              <p>站點名稱</p>
+              <p>{sna}</p>
+            </div>
+            <div className={style.station__text}>可借車輛：{sbi} 台</div>
+            <div className={style.station__text}>可停空位：{bemp} 格</div>
+            <div className={style.station__text}>
+              <p>更新時間：</p>
+              <p>{updateTime}</p>
+            </div>
+          </div>
+        )}
+
         <div className={style.action}>
           <RiDeleteBin6Line
             className={style.riDelete}
