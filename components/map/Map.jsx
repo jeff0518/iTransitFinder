@@ -30,12 +30,13 @@ const noRentBike = {
 function Map(props) {
   const { youBikeData } = props;
   const {
-    currentPosition,
     setCurrentPosition,
     userLocation,
     setUserLocation,
     screenCenter,
     setScreenCenter,
+    circle,
+    setCircle,
   } = useContext(NavigationContext);
   const screenCenterRef = useRef();
   const [timer, setTimer] = useState(null); //存放setTimeout的計時器
@@ -67,6 +68,10 @@ function Map(props) {
           lat: newCurrentCenter.lat(),
           lng: newCurrentCenter.lng(),
         });
+        setCircle({
+          lat: newCurrentCenter.lat(),
+          lng: newCurrentCenter.lng(),
+        });
       }
     }, 500);
     setTimer(newTimer);
@@ -80,7 +85,7 @@ function Map(props) {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
-        setCurrentPosition({
+        setCircle({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
@@ -106,12 +111,8 @@ function Map(props) {
           let amount = null;
           if (data.act === "0") return;
           // 計算離使用者有多少距離
-          // let userDistance = getDistance(
-          //   { lat: userLocation.lat, lng: userLocation.lng },
-          //   { lat: data.lat, lng: data.lng }
-          // );
           let screenCenterDistance = getDistance(
-            { lat: currentPosition.lat, lng: currentPosition.lng },
+            { lat: circle.lat, lng: circle.lng },
             { lat: data.lat, lng: data.lng }
           );
           if (screenCenterDistance > 500) return;

@@ -17,6 +17,8 @@ function SearchBar(props) {
     currentPosition,
     setCurrentPosition,
     destination,
+    circle,
+    setCircle,
   } = useContext(NavigationContext);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
@@ -24,21 +26,23 @@ function SearchBar(props) {
 
   // 抓取input內容
   const calculateRoute = async () => {
-    console.log(destinationInputRef.current.value);
+    console.log(currentPosition);
     if (destinationInputRef.current.value === "") {
       return;
     }
     if (destination !== null) {
       destinationInputRef.current.value = destination;
     }
-    if (currentPosition === null) {
+    if (currentPosition) {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode(
         { address: destinationInputRef.current.value },
-        (result, status) => {
+        (results, status) => {
           if (status === "OK") {
-            const { location } = result[0].geometry;
+            const { location } = results[0].geometry;
+            console.log("我是第3行：" + location);
             setCurrentPosition({ lat: location.lat(), lng: location.lng() });
+            setCircle({ lat: location.lat(), lng: location.lng() });
             panToDestinationHandler({
               lat: location.lat(),
               lng: location.lng(),
@@ -67,10 +71,18 @@ function SearchBar(props) {
     setCurrentPosition(userLocation);
     screenCenter.panTo(userLocation);
   };
-
-  const panToDestinationHandler = ({ currentPosition }) => {
-    screenCenter.panTo(currentPosition);
+  // 前往目的地
+  const panToDestinationHandler = (destination) => {
+    screenCenter.panTo(destination);
   };
+
+  // 刪除按鈕
+  const clearButton = () => {
+    setDistance("");
+    setDuration("");
+    destinationInputRef.current.value = "";
+  };
+
   return (
     <>
       <div className={style.container}>
@@ -107,7 +119,11 @@ function SearchBar(props) {
           <div className={style.station__text}>更新時間：{updateTime}</div>
         </div>
         <div className={style.action}>
-          <RiDeleteBin6Line className={style.riDelete} size={35} />
+          <RiDeleteBin6Line
+            className={style.riDelete}
+            size={35}
+            onClick={clearButton}
+          />
           <BiNavigation
             className={style.biNav}
             size={35}
