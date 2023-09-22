@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useRef } from "react";
 import { NavigationContext } from "@/context/NavigationContext";
 import { SearchContext } from "@/context/SearchContext";
 import { Autocomplete } from "@react-google-maps/api";
@@ -16,10 +16,10 @@ function SearchBar(props) {
     setIsStationInfoVisible,
     setIsMrtStationInfoVisible,
     isMrtStationInfoVisible,
+    isBusStationInfoVisible,
+    setIsBusStationInfoVisible,
   } = props;
-  // const { sna, sbi, bemp, updateTime } = props.stationData;
-  const { mrtStationData, stationData } = props;
-  console.log(mrtStationData);
+  const { mrtStationData, stationData, busStationData } = props;
   const {
     userLocation,
     screenCenter,
@@ -98,9 +98,11 @@ function SearchBar(props) {
     if (isMrtStationInfoVisible) {
       setIsMrtStationInfoVisible(false);
     }
+    if (isBusStationInfoVisible) {
+      setIsBusStationInfoVisible(false);
+    }
     destinationInputRef.current.value = "";
   };
-
   return (
     <>
       <div className={style.container}>
@@ -131,6 +133,19 @@ function SearchBar(props) {
           </div>
         </div>
         {/* 資訊欄必須要點擊才會出現，後續要補判斷式 */}
+        {isBusStationInfoVisible && (
+          <div className={style.info__station}>
+            <h3 className={style.station__title}>站點資訊</h3>
+            <div className={style.station__text}>
+              <p>公車站名稱</p>
+              <p>{busStationData.StopName.Zh_tw}</p>
+            </div>
+            <div className={style.station__text}>
+              <p>停靠此站的公車</p>
+              <p>資料處理中</p>
+            </div>
+          </div>
+        )}
         {isMrtStationInfoVisible && (
           <div className={style.info__station}>
             <h3 className={style.station__title}>站點資訊</h3>
