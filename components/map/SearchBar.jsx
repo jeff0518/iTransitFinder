@@ -11,8 +11,15 @@ import InputUI from "../shared/InputUI";
 import style from "./SearchBar.module.scss";
 
 function SearchBar(props) {
-  const { isStationInfoVisible, setIsStationInfoVisible } = props;
-  const { sna, sbi, bemp, updateTime } = props.stationData;
+  const {
+    isStationInfoVisible,
+    setIsStationInfoVisible,
+    setIsMrtStationInfoVisible,
+    isMrtStationInfoVisible,
+  } = props;
+  // const { sna, sbi, bemp, updateTime } = props.stationData;
+  const { mrtStationData, stationData } = props;
+  console.log(mrtStationData);
   const {
     userLocation,
     screenCenter,
@@ -31,7 +38,6 @@ function SearchBar(props) {
   const destinationInputRef = useRef();
   // 抓取input內容
   const calculateRoute = async () => {
-    console.log(currentPosition);
     if (destinationInputRef.current.value === "") {
       return;
     }
@@ -45,7 +51,6 @@ function SearchBar(props) {
         (results, status) => {
           if (status === "OK") {
             const { location } = results[0].geometry;
-            console.log("我是第3行：" + location);
             setCurrentPosition({ lat: location.lat(), lng: location.lng() });
             setCircle({ lat: location.lat(), lng: location.lng() });
             panToDestinationHandler({
@@ -87,7 +92,12 @@ function SearchBar(props) {
     setDistance("");
     setDuration("");
     setDestination(null);
-    setIsStationInfoVisible(false);
+    if (isStationInfoVisible) {
+      setIsStationInfoVisible(false);
+    }
+    if (isMrtStationInfoVisible) {
+      setIsMrtStationInfoVisible(false);
+    }
     destinationInputRef.current.value = "";
   };
 
@@ -121,18 +131,35 @@ function SearchBar(props) {
           </div>
         </div>
         {/* 資訊欄必須要點擊才會出現，後續要補判斷式 */}
+        {isMrtStationInfoVisible && (
+          <div className={style.info__station}>
+            <h3 className={style.station__title}>站點資訊</h3>
+            <div className={style.station__text}>
+              <p>捷運站名稱</p>
+              <p>{mrtStationData.StationName.Zh_tw}</p>
+            </div>
+            <div className={style.station__text}>
+              <p>捷運站路線</p>
+              <p>{mrtStationData.StationID}</p>
+            </div>
+          </div>
+        )}
         {isStationInfoVisible && (
           <div className={style.info__station}>
             <h3 className={style.station__title}>站點資訊</h3>
             <div className={style.station__text}>
               <p>站點名稱</p>
-              <p>{sna}</p>
+              <p>{stationData.sna}</p>
             </div>
-            <div className={style.station__text}>可借車輛：{sbi} 台</div>
-            <div className={style.station__text}>可停空位：{bemp} 格</div>
+            <div className={style.station__text}>
+              可借車輛：{stationData.sbi} 台
+            </div>
+            <div className={style.station__text}>
+              可停空位：{stationData.bemp} 格
+            </div>
             <div className={style.station__text}>
               <p>更新時間：</p>
-              <p>{updateTime}</p>
+              <p>{stationData.updateTime}</p>
             </div>
           </div>
         )}
