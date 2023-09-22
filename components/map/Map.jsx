@@ -13,7 +13,7 @@ import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
 
 function Map(props) {
-  const { youBikeData, mrtData, showDataHandler } = props;
+  const { youBikeData, mrtData, busData, showDataHandler } = props;
   const {
     currentPosition,
     setCurrentPosition,
@@ -98,10 +98,37 @@ function Map(props) {
         onLoad={onLoad}
         onCenterChanged={centerChangHandler}
       >
-        {iconDistance > 100 && (
-          <MarkerF position={currentPosition} icon={flagIcon} />
-        )}
+        {iconDistance > 100 && <MarkerF position={currentPosition} />}
         <MarkerF position={userLocation} icon={currentIcon} />
+
+        {busData &&
+          busData.map((data) => {
+            return (
+              <div key={data.RouteUID + data.Direction}>
+                {data.Stops.map((stopsData) => {
+                  let screenCenterDistance = getDistance(
+                    { lat: circle.lat, lng: circle.lng },
+                    {
+                      lat: stopsData.StopPosition.PositionLat,
+                      lng: stopsData.StopPosition.PositionLon,
+                    }
+                  );
+                  if (screenCenterDistance > 200) return;
+                  return (
+                    <MarkerF
+                      key={stopsData.StopUID}
+                      position={{
+                        lat: stopsData.StopPosition.PositionLat,
+                        lng: stopsData.StopPosition.PositionLon,
+                      }}
+                      icon={busIcon}
+                      onClick={() => showDataHandler(stopsData)}
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
 
         {mrtData &&
           mrtData.map((data) => {
@@ -183,5 +210,10 @@ const flagIcon = {
 
 const subwayIcon = {
   url: "/images/icon/subway.png",
+  scaledSize: { width: 36, height: 36 },
+};
+
+const busIcon = {
+  url: "/images/icon/bus.png",
   scaledSize: { width: 36, height: 36 },
 };

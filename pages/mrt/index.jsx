@@ -18,7 +18,6 @@ function MRTPage() {
 
   // 抓取站點資料
   const showDataHandler = (props) => {
-    console.log(props.StationName.Zh_tw);
     setIsMrtStationInfoVisible(true);
     setMrtStationData(props);
     setDestination(props.StationAddress);
