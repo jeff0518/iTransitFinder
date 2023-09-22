@@ -16,6 +16,9 @@ function SearchProvider(props) {
   const [stationData, setStationData] = useState(""); // 存放bike站點的資料
   const [mrtStationData, setMrtStationData] = useState(""); // 存放mrt站點的資料
   const [busStationData, setBusStationData] = useState(""); // 存放bus站點的資料
+  const [parkingLotBaseData, setParkingLotBaseData] = useState(""); // 存放parking的基本資料
+  const [parkingLotAvailabilityData, setParkingLotAvailabilityData] =
+    useState(""); // 存放parking的資料
 
   return (
     <SearchContext.Provider
@@ -32,6 +35,10 @@ function SearchProvider(props) {
         setMrtStationData,
         busStationData,
         setBusStationData,
+        parkingLotBaseData,
+        setParkingLotBaseData,
+        parkingLotAvailabilityData,
+        setParkingLotAvailabilityData,
       }}
     >
       {children}

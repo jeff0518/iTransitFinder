@@ -8,12 +8,20 @@ import {
 } from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import getDistance from "geolib/es/getDistance";
+import { Trans97 } from "trans97";
 
 import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
 
 function Map(props) {
-  const { youBikeData, mrtData, busData, showDataHandler } = props;
+  const {
+    youBikeData,
+    mrtData,
+    busData,
+    parkingInfo,
+    parkingAvailability,
+    showDataHandler,
+  } = props;
   const {
     currentPosition,
     setCurrentPosition,
@@ -26,6 +34,12 @@ function Map(props) {
   } = useContext(NavigationContext);
   const screenCenterRef = useRef();
   const [timer, setTimer] = useState(null); //存放setTimeout的計時器
+
+  // 轉換座標使用trans97.getLocation()
+  const trans97 = new Trans97({
+    type: "wgs84",
+  });
+
   // 定義地圖的選項
   const options = useMemo(
     () => ({
@@ -100,6 +114,32 @@ function Map(props) {
       >
         {iconDistance > 100 && <MarkerF position={currentPosition} />}
         <MarkerF position={userLocation} icon={currentIcon} />
+
+        {parkingInfo &&
+          parkingInfo.map((data) => {
+            const position = trans97.getLocation(data.tw97x, data.tw97y);
+            let screenCenterDistance = getDistance(
+              { lat: circle.lat, lng: circle.lng },
+              {
+                lat: position.lat,
+                lng: position.lng,
+              }
+            );
+            if (screenCenterDistance > 500) return;
+            return (
+              <>
+                <MarkerF
+                  key={data.id}
+                  position={{
+                    lat: position.lat,
+                    lng: position.lng,
+                  }}
+                  icon={parkingIcon}
+                  onClick={() => showDataHandler(data)}
+                />
+              </>
+            );
+          })}
 
         {busData &&
           busData.map((data) => {
@@ -215,5 +255,10 @@ const subwayIcon = {
 
 const busIcon = {
   url: "/images/icon/bus.png",
+  scaledSize: { width: 36, height: 36 },
+};
+
+const parkingIcon = {
+  url: "/images/icon/parking-sign.png",
   scaledSize: { width: 36, height: 36 },
 };
