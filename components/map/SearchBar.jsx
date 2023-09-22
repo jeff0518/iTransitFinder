@@ -18,8 +18,17 @@ function SearchBar(props) {
     isMrtStationInfoVisible,
     isBusStationInfoVisible,
     setIsBusStationInfoVisible,
+    isParkingInfoVisible,
+    setIsParkingInfoVisible,
   } = props;
-  const { mrtStationData, stationData, busStationData } = props;
+  const {
+    mrtStationData,
+    stationData,
+    busStationData,
+    parkingLotBaseData,
+    parkingLotAvailabilityData,
+    parkingAvailability,
+  } = props;
   const {
     userLocation,
     screenCenter,
@@ -101,6 +110,9 @@ function SearchBar(props) {
     if (isBusStationInfoVisible) {
       setIsBusStationInfoVisible(false);
     }
+    if (isParkingInfoVisible) {
+      setIsParkingInfoVisible(false);
+    }
     destinationInputRef.current.value = "";
   };
   return (
@@ -133,6 +145,32 @@ function SearchBar(props) {
           </div>
         </div>
         {/* 資訊欄必須要點擊才會出現，後續要補判斷式 */}
+        {isParkingInfoVisible && (
+          <div className={style.info__station}>
+            <h3 className={style.station__title}>停車場資訊</h3>
+            <div className={style.station__text}>
+              <p>停車場名稱</p>
+              <p>{parkingLotBaseData.name}</p>
+            </div>
+            <div className={style.station__text}>
+              可停空位：
+              {parkingAvailability[parkingLotBaseData.id]?.availablecar}格
+            </div>
+            <div className={style.station__text}>
+              <p>停車場費用</p>
+              <p>{parkingLotBaseData.payex}</p>
+            </div>
+            <div className={style.station__text}>
+              <p>停車場營業時間</p>
+              <p>{parkingLotBaseData.serviceTime}</p>
+            </div>
+            {/* <div className={style.station__text}>
+              <p>更新時間：</p>
+              <p>{stationData.updateTime}</p>
+            </div> */}
+          </div>
+        )}
+
         {isBusStationInfoVisible && (
           <div className={style.info__station}>
             <h3 className={style.station__title}>站點資訊</h3>
@@ -146,6 +184,7 @@ function SearchBar(props) {
             </div>
           </div>
         )}
+
         {isMrtStationInfoVisible && (
           <div className={style.info__station}>
             <h3 className={style.station__title}>站點資訊</h3>
