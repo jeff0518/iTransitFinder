@@ -65,7 +65,7 @@ function AuthForm() {
   }
 
   return (
-    <>
+    <div className={style.container}>
       <section className={style.auth}>
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <form onSubmit={submitHandler}>
@@ -107,7 +107,7 @@ function AuthForm() {
           </div>
         </form>
       </section>
-    </>
+    </div>
   );
 }
 

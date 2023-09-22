@@ -13,11 +13,9 @@ function Layout(props) {
             <Logo />
           </div>
         </Link>
-        <Link href="/auth">
-          <div className={style.AuthNavigation}>
-            <AuthNavigation />
-          </div>
-        </Link>
+        <div className={style.AuthNavigation}>
+          <AuthNavigation />
+        </div>
       </div>
       {props.children}
     </>

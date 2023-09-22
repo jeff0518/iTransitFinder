@@ -1,17 +1,29 @@
 @use "../../styles/colors" as color;
 @import "../../styles/mixin";
 
-.auth {
-  width: 80%;
-  margin: 10rem auto;
-  padding: 1rem;
-  text-align: center;
-  background-color: color.$brand-color;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+.container {
+  width: 100vw;
+  height: 88vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(color.$brand-light-color, 0.8),
+      rgba(color.$assistant-green-color, 0.8)
+    ),
+    url(../../public/images/background/googlemap.jpg);
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%);
 
-  .div__btn {
-    margin-top: 2rem;
-    @include center-both;
+  .auth {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 10rem;
+    text-align: center;
+    border-radius: 6px;
+    .div__btn {
+      margin-top: 2rem;
+      @include center-both;
+      flex-direction: column;
+    }
   }
 }
