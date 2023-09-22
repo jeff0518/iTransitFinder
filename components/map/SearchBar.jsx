@@ -152,10 +152,10 @@ function SearchBar(props) {
               <p>停車場名稱</p>
               <p>{parkingLotBaseData.name}</p>
             </div>
-            <div className={style.station__text}>
+            {/* <div className={style.station__text}>
               可停空位：
               {parkingAvailability[parkingLotBaseData.id]?.availablecar}格
-            </div>
+            </div> */}
             <div className={style.station__text}>
               <p>停車場費用</p>
               <p>{parkingLotBaseData.payex}</p>

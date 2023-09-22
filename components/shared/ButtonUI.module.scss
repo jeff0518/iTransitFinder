@@ -25,3 +25,16 @@
   background-color: color.$primary-color;
   color: color.$assistant-gray-color;
 }
+
+.btn__link {
+  margin-top: 0.5rem;
+  @include center-both;
+  background-color: unset;
+  border: none;
+  @include text-styles(1rem, 400, color.$gray-1);
+  cursor: pointer;
+}
+
+.btn__link:hover {
+  color: color.$primary-color;
+}
