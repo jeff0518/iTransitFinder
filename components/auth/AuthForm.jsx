@@ -52,7 +52,7 @@ function AuthForm() {
       if (!result.error) {
         router.replace("/");
       }
-      router.push("/auth");
+      router.push("/");
     } else {
       try {
         const result = await createUser(enterEmail, enterPassword);
