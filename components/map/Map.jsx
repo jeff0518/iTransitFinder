@@ -13,7 +13,7 @@ import { NavigationContext } from "@/context/NavigationContext";
 import style from "./Map.module.scss";
 
 function Map(props) {
-  const { youBikeData, showDataHandler } = props;
+  const { youBikeData, mrtData, showDataHandler } = props;
   const {
     currentPosition,
     setCurrentPosition,
@@ -103,31 +103,57 @@ function Map(props) {
         )}
         <MarkerF position={userLocation} icon={currentIcon} />
 
-        {youBikeData.map((data) => {
-          let amount = null;
-          if (data.act === "0") return;
-          // 計算離使用者有多少距離
-          let screenCenterDistance = getDistance(
-            { lat: circle.lat, lng: circle.lng },
-            { lat: data.lat, lng: data.lng }
-          );
-          if (screenCenterDistance > 500) return;
-          if (data.sbi > 3) {
-            amount = true;
-          } else {
-            amount = false;
-          }
-          return (
-            <>
-              <MarkerF
-                key={data.sno}
-                position={{ lat: data.lat, lng: data.lng }}
-                icon={amount ? normalBike : noRentBike}
-                onClick={() => showDataHandler(data)}
-              />
-            </>
-          );
-        })}
+        {mrtData &&
+          mrtData.map((data) => {
+            let screenCenterDistance = getDistance(
+              { lat: circle.lat, lng: circle.lng },
+              {
+                lat: data.StationPosition.PositionLat,
+                lng: data.StationPosition.PositionLon,
+              }
+            );
+            if (screenCenterDistance > 800) return;
+            return (
+              <>
+                <MarkerF
+                  key={data.StationID}
+                  position={{
+                    lat: data.StationPosition.PositionLat,
+                    lng: data.StationPosition.PositionLon,
+                  }}
+                  icon={subwayIcon}
+                  onClick={() => showDataHandler(data)}
+                />
+              </>
+            );
+          })}
+
+        {youBikeData &&
+          youBikeData.map((data) => {
+            let amount = null;
+            if (data.act === "0") return;
+            // 計算離使用者有多少距離
+            let screenCenterDistance = getDistance(
+              { lat: circle.lat, lng: circle.lng },
+              { lat: data.lat, lng: data.lng }
+            );
+            if (screenCenterDistance > 500) return;
+            if (data.sbi > 3) {
+              amount = true;
+            } else {
+              amount = false;
+            }
+            return (
+              <>
+                <MarkerF
+                  key={data.sno}
+                  position={{ lat: data.lat, lng: data.lng }}
+                  icon={amount ? normalBike : noRentBike}
+                  onClick={() => showDataHandler(data)}
+                />
+              </>
+            );
+          })}
       </GoogleMap>
     </div>
   );
@@ -153,4 +179,9 @@ const noRentBike = {
 const flagIcon = {
   url: "/images/icon/flag.png",
   scaledSize: { width: 50, height: 50 },
+};
+
+const subwayIcon = {
+  url: "/images/icon/subway.png",
+  scaledSize: { width: 36, height: 36 },
 };

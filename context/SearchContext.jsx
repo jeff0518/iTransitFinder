@@ -13,7 +13,8 @@ function SearchProvider(props) {
   const [destination, setDestination] = useState(null); // 存放目的地的資料
   const [distance, setDistance] = useState(""); // 存放到目的地的時間
   const [duration, setDuration] = useState(""); // 存放到目的地的距離
-  const [stationData, setStationData] = useState(""); // 存放站點的資料
+  const [stationData, setStationData] = useState(""); // 存放bike站點的資料
+  const [mrtStationData, setMrtStationData] = useState("");
 
   return (
     <SearchContext.Provider
@@ -26,6 +27,8 @@ function SearchProvider(props) {
         setDuration,
         stationData,
         setStationData,
+        mrtStationData,
+        setMrtStationData,
       }}
     >
       {children}

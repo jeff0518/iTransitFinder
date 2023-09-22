@@ -18,7 +18,6 @@ function BikePage() {
 
   // 抓取站點資料
   const showDataHandler = (props) => {
-    console.log(props);
     setIsStationInfoVisible(true);
     setStationData(props);
     setDestination("Taipei " + props.aren);
